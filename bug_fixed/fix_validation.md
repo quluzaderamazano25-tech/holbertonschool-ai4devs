@@ -1,41 +1,86 @@
-# Fix Validation Log
+Fix Validation Log
+Bug 1 – bug1_fixed.py
+Description: Fixed IndexError by adjusting the range to the correct list length.
 
-## Bug 1 – bug1_fixed.py
-- **Bug Description**: The original code used `range(start, len(items) + 1)`, which caused an `IndexError` because it tried to access an index equal to the list length.
-- **Input for Testing**: `items =`, `n = 3`
-- **Expected Output**: ``
-- **Actual Output**: `` 
-- **Validation Steps**: 
-    1. Verified that `max(0, len(items) - n)` correctly handles cases where `n > len(items)`.
-    2. Confirmed that changing the range to `len(items)` prevents the off-by-one error.
-    3. Tested with an empty list to ensure no crash occurs.
+Test Case:
 
-## Bug 2 – bug2_fixed.py
-- **Input**: `n=5`; `n=0`
-- **Expected Output**: `120`; `1`
-- **Actual Output**: `120`; `1` 
-- **Validation**: Initialized the result variable to 1 and updated the loop to `range(1, n + 1)`.
+Input: items =, n = 3
 
-## Bug 3 – bug3_fixed.js
-- **Input**: `[NaN, 1, 2]`
-- **Expected Output**: `1.5`
-- **Actual Output**: `1.5` 
-- **Validation**: Added `Number.isNaN` filter and provided an initial value of 0 for the reduce function.
+Expected Output: ``
 
-## Bug 4 – bug4_fixed.js
-- **Input**: API URL (JSONPlaceholder)
-- **Expected Output**: Array of uppercase names.
-- **Actual Output**: Uppercase names array 
-- **Validation**: Correctly resolved promises using `await` for both fetch and JSON parsing.
+Actual Output: `` 
 
-## Bug 5 – bug5_fixed.java
-- **Input**: `null` string input
-- **Expected Output**: Empty map or graceful handling.
-- **Actual Output**: Graceful handling with no crash 
-- **Validation**: Integrated a null guard clause and used `getOrDefault` to handle map keys safely.
+Validation: Verified that the function no longer attempts to access items.
 
-## Bug 6 – bug6_fixed.py
-- **Input**: CSV data `Alice,85,90,78`
-- **Expected Output**: `Alice,84.33`
-- **Actual Output**: `Alice,84.33` 
-- **Validation**: Ensured data types are converted to float before calculation and used `with` blocks for file safety.
+Bug 2 – bug2_fixed.py
+Description: Corrected factorial logic by initializing result to 1 and fixing the loop range.
+
+Test Case:
+
+Input: n = 5
+
+Expected Output: 120
+
+Actual Output: 120 
+
+Validation: Confirmed factorial(0) also correctly returns 1.
+
+Bug 3 – bug3_fixed.js
+Description: Fixed average calculation by filtering NaN and providing a default value for reduce.
+
+Test Case:
+
+Input: [NaN, 1, 2, 3]
+
+Expected Output: 2
+
+Actual Output: 2 
+
+Validation: The function now ignores non-numeric values safely.
+
+Bug 4 – bug4_fixed.js
+Description: Resolved asynchronous execution issues using await.
+
+Test Case:
+
+Input: Mock API returning users with name: "John Doe"
+
+Expected Output: ["JOHN DOE"]
+
+Actual Output: ["JOHN DOE"] 
+
+Validation: Ensured the names are fully capitalized after the promise resolves.
+
+Bug 5 – bug5_fixed.java
+Description: Added null protection and safe map access to prevent NullPointerException.
+
+Test Case 1 (Null Input):
+
+Input: String sentence = null
+
+Expected Output: Empty HashMap (no crash)
+
+Actual Output: {} 
+
+Test Case 2 (Word Frequency):
+
+Input: "apple banana apple"
+
+Expected Output: {apple=2, banana=1}
+
+Actual Output: {apple=2, banana=1} 
+
+Validation: Implemented getOrDefault to handle word counting safely.
+
+Bug 6 – bug6_fixed.py
+Description: Fixed CSV score processing by converting strings to floats.
+
+Test Case:
+
+Input: CSV line "Alice,80,90"
+
+Expected Output: Alice, 85.0
+
+Actual Output: Alice, 85.0 
+
+Validation: Used with open() to ensure proper file closing and resource management.
