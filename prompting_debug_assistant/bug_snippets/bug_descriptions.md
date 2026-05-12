@@ -1,59 +1,31 @@
 # Bug Descriptions
 
 ## Bug 1 – bug1.py
-**Intended Behavior**: Accept a list and an integer `n`, and return the last `n` elements of the list.
+**Intended Behavior**: Return a list with the last n elements.
 **Issue Type**: Off-by-one error.
-**Example Input**: `get_last([1, 2, 3, 4, 5], 3)`
-**Expected Output**: `[3, 4, 5]`
-**Actual Output**: `[4, 5]` — one element is missing due to `len(items)+1` in the loop boundary.
-**Notes**: Change loop range from `len(items)+1` to `len(items)` to return the correct slice.
-
----
+**Notes**: Loop uses `range(start, len(items) + 1)` causing IndexError on the last iteration. Change `len(items) + 1` to `len(items)`.
 
 ## Bug 2 – bug2.py
-**Intended Behavior**: Accept a non-negative integer `n` and return its factorial. `factorial(0)` must return `1`.
+**Intended Behavior**: Calculate factorial of n (factorial(0) = 1).
 **Issue Type**: Logical error.
-**Example Input**: `factorial(5)`
-**Expected Output**: `120`
-**Actual Output**: `0` — because the loop starts at `0`, multiplying `result` by `0` on the first iteration.
-**Notes**: Set `result = 1` and use `range(1, n+1)` so multiplication begins from `1`, not `0`.
-
----
+**Notes**: `result = 0` makes all products zero. Loop uses `range(1, n)` which excludes n. Also missing base case for n = 0. Set `result = 1`, add `if n == 0: return 1`, and use `range(1, n + 1)`.
 
 ## Bug 3 – bug3.js
-**Intended Behavior**: Accept an array of numbers and return their mean rounded to 2 decimal places, ignoring `NaN` values.
+**Intended Behavior**: Return mean of valid numbers rounded to 2 decimal places, ignoring NaN values.
 **Issue Type**: Logic error.
-**Example Input**: `mean([1, 2, NaN, 3])`
-**Expected Output**: `2.00`
-**Actual Output**: `NaN` — because `NaN` passes through the filter and corrupts the sum.
-**Notes**: Replace the filter condition with `Number.isNaN()` and provide `0` as the initial value in the `reduce()` call.
-
----
+**Notes**: `typeof NaN === "number"` is true so NaN passes the filter. `reduce()` has no initial value causing TypeError on empty arrays. `toFixed()` returns a string. Use `Number.isNaN()` in filter, add `0` as initial value in reduce, and wrap with `parseFloat()`.
 
 ## Bug 4 – bug4.js
-**Intended Behavior**: Fetch a list of users from a JSON API and return their names converted to uppercase.
+**Intended Behavior**: Fetch JSON from a URL and return user names in uppercase.
 **Issue Type**: Async/Await error.
-**Example Input**: API returns `[{ name: "alice" }, { name: "bob" }]`
-**Expected Output**: `["ALICE", "BOB"]`
-**Actual Output**: `TypeError` or unresolved `Promise` — because `fetch()` and `.json()` are called without `await`.
-**Notes**: Add `await` before both `fetch()` and `.json()` inside the `async` function.
-
----
+**Notes**: `fetch()` and `.json()` return Promises but are not awaited, so `data.map()` is called on an unresolved Promise causing TypeError. Add `await` before both `fetch(url)` and `response.json()`.
 
 ## Bug 5 – bug5.java
-**Intended Behavior**: Accept a sentence string and return the word that appears most frequently.
+**Intended Behavior**: Return the most frequent word in a sentence.
 **Issue Type**: Runtime exception (NullPointerException).
-**Example Input**: `mostFrequent("the cat sat on the mat the")`
-**Expected Output**: `"the"`
-**Actual Output**: `NullPointerException` — when input is `null` or a word key is accessed before being initialized in the map.
-**Notes**: Add a null check at the start of the method and use `getOrDefault(word, 0)` when reading from the frequency map.
-
----
+**Notes**: Null input crashes on `.toLowerCase()`. `counts.get(word)` returns null for unseen words causing NPE on increment. Add null check at start of method and replace `counts.get(word)` with `counts.getOrDefault(word, 0)`.
 
 ## Bug 6 – bug6.py
-**Intended Behavior**: Read a CSV file containing numeric columns, compute the average of each column, and write the results to a new CSV file.
+**Intended Behavior**: Read a CSV file, compute averages of numeric columns, and write results to a new CSV.
 **Issue Type**: Type mismatch.
-**Example Input**: CSV with columns `[score1, score2]` containing values like `"85"`, `"90"`.
-**Expected Output**: New CSV with `[score1_avg, score2_avg]` as float values.
-**Actual Output**: `TypeError: can only concatenate str (not "int") to str` — because CSV values are read as strings and not converted before arithmetic.
-**Notes**: Wrap all CSV value reads with `float()` and use `with open(...)` blocks to ensure files are safely opened and closed.
+**Notes**: CSV values are read as strings so arithmetic raises TypeError. Files should be opened with `with` blocks to prevent resource leaks. Convert values with `float()` and use `with open(...)` for both read and write operations.
