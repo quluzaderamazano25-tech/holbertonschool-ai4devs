@@ -1,11 +1,11 @@
 $basePath = "C:\Users\Fatima\OneDrive\Desktop\bug_description.md"
 $promptsDir = Join-Path $basePath "prompt_patterns_library\prompts"
 
-# 1. Qovluğu tam təmizləyirik (köhnə refactoring.md və s. silinir)
+# 1. Qovluğu təmizləyirik (köhnə faylların silinməsi vacibdir)
 if (Test-Path $promptsDir) { Remove-Item -Recurse -Force $promptsDir }
 New-Item -ItemType Directory -Path $promptsDir -Force
 
-# 2. Task 0-dakı 12 istifadə halına 1:1 uyğun gələn şablonlar
+# 2. Task 0-dakı use case-lərə uyğun, VAHİD başlıqlı 12 şablon
 $templates = @{
     "complexity_reduction.md" = "# Complexity Reduction Template`n`n**Role**: Senior Software Architect`n**Task**: Simplify the provided code by reducing nesting and improving logic flow.`n**Input Placeholder**: [INPUT]`n**Expected Output Format**: A refactored code block with flattened logic and a summary of the complexity improvements."
     
@@ -25,7 +25,7 @@ $templates = @{
     
     "api_doc_generation.md" = "# API Documentation Template`n`n**Role**: Backend Developer`n**Task**: Generate standard documentation blocks (JSDoc/Docstrings) for the input functions.`n**Input Placeholder**: [INPUT]`n**Expected Output Format**: The code updated with standardized documentation describing parameters, returns, and exceptions."
     
-    "unit_test_generation.md" = "# Unit Test Generation Template`n`n**Role**: SDET`n**Task**: Create comprehensive unit tests for the provided function.`n**Input Placeholder**: [INPUT]`n**Expected Output Format**: A complete test file (using Pytest, Jest, or JUnit) covering hem success, hem de failure ssenarilərini."
+    "unit_test_generation.md" = "# Unit Test Generation Template`n`n**Role**: SDET`n**Task**: Create comprehensive unit tests for the provided function.`n**Input Placeholder**: [INPUT]`n**Expected Output Format**: A complete test file (using Pytest, Jest, or JUnit) covering success and failure scenarios."
     
     "integration_test_plan.md" = "# Integration Test Planning Template`n`n**Role**: QA Architect`n**Task**: Define how the provided system components should interact and be tested.`n**Input Placeholder**: [INPUT]`n**Expected Output Format**: A step-by-step integration test plan detailing data flow validation and success criteria."
     
@@ -39,4 +39,4 @@ foreach ($name in $templates.Keys) {
     [System.IO.File]::WriteAllText($fPath, $templates[$name], $utf8NoBom)
 }
 
-Write-Host "Success: 12 templates rewritten, old files deleted, structure synchronized with Task 0." -ForegroundColor Cyan
+Write-Host "Success: All 12 templates normalized with 'Input Placeholder' and 'Expected Output Format' headers." -ForegroundColor Cyan
