@@ -1,31 +1,53 @@
-# Bug Descriptions
+Bug 1 – bug1.py
+Intended Behavior: The function should return a list containing only the last n elements from the input list.
 
-## Bug 1 – bug1.py
-**Intended Behavior**: Return a list with the last n elements.
-**Issue Type**: Off-by-one error.
-**Notes**: Loop uses `range(start, len(items) + 1)` causing IndexError on the last iteration. Change `len(items) + 1` to `len(items)`.
+Issue Type: Off-by-one error / IndexError.
 
-## Bug 2 – bug2.py
-**Intended Behavior**: Calculate factorial of n (factorial(0) = 1).
-**Issue Type**: Logical error.
-**Notes**: `result = 0` makes all products zero. Loop uses `range(1, n)` which excludes n. Also missing base case for n = 0. Set `result = 1`, add `if n == 0: return 1`, and use `range(1, n + 1)`.
+Notes: The loop uses range(start, len(items) + 1), which attempts to access an index equal to the length of the list. Since Python lists are zero-indexed, this causes an IndexError on the final iteration.
 
-## Bug 3 – bug3.js
-**Intended Behavior**: Return mean of valid numbers rounded to 2 decimal places, ignoring NaN values.
-**Issue Type**: Logic error.
-**Notes**: `typeof NaN === "number"` is true so NaN passes the filter. `reduce()` has no initial value causing TypeError on empty arrays. `toFixed()` returns a string. Use `Number.isNaN()` in filter, add `0` as initial value in reduce, and wrap with `parseFloat()`.
+Fix: Replace len(items) + 1 with len(items) in the range function.
 
-## Bug 4 – bug4.js
-**Intended Behavior**: Fetch JSON from a URL and return user names in uppercase.
-**Issue Type**: Async/Await error.
-**Notes**: `fetch()` and `.json()` return Promises but are not awaited, so `data.map()` is called on an unresolved Promise causing TypeError. Add `await` before both `fetch(url)` and `response.json()`.
+Bug 2 – bug2.py
+Intended Behavior: Calculate the factorial of a non-negative integer n, ensuring that factorial(0) returns 1.
 
-## Bug 5 – bug5.java
-**Intended Behavior**: Return the most frequent word in a sentence.
-**Issue Type**: Runtime exception (NullPointerException).
-**Notes**: Null input crashes on `.toLowerCase()`. `counts.get(word)` returns null for unseen words causing NPE on increment. Add null check at start of method and replace `counts.get(word)` with `counts.getOrDefault(word, 0)`.
+Issue Type: Logical Error.
 
-## Bug 6 – bug6.py
-**Intended Behavior**: Read a CSV file, compute averages of numeric columns, and write results to a new CSV.
-**Issue Type**: Type mismatch.
-**Notes**: CSV values are read as strings so arithmetic raises TypeError. Files should be opened with `with` blocks to prevent resource leaks. Convert values with `float()` and use `with open(...)` for both read and write operations.
+Notes: The variable result is initialized to 0, causing all subsequent multiplications to result in zero. Additionally, range(1, n) excludes the number n itself from the calculation.
+
+Fix: Set result = 1, handle the base case where n = 0, and update the loop to range(1, n + 1).
+
+Bug 3 – bug3.js
+Intended Behavior: Filter an array for numeric values (excluding NaN), calculate the arithmetic mean, and return it as a number rounded to 2 decimal places.
+
+Issue Type: Logical Error / Type Mismatch.
+
+Notes: In JavaScript, typeof NaN evaluates to "number", allowing NaN to pass through the filter. Furthermore, reduce() lacks an initial value, which triggers a TypeError on empty arrays, and toFixed() returns a string rather than a number.
+
+Fix: Use Number.isNaN() within the filter, provide 0 as the initial value for reduce(), and wrap the final result in parseFloat().
+
+Bug 4 – bug4.js
+Intended Behavior: Fetch a JSON array from a provided URL and return a new array containing user names converted to uppercase.
+
+Issue Type: Async/Await / Promise Handling Error.
+
+Notes: Both fetch() and response.json() return Promises. Because these are not awaited, the code attempts to call .map() on an unresolved Promise object rather than the actual data array, resulting in a TypeError.
+
+Fix: Add the await keyword before both the fetch(url) call and the response.json() call.
+
+Bug 5 – bug5.java
+Intended Behavior: Count word frequencies in a sentence and identify the most frequent word.
+
+Issue Type: Runtime Exception (NullPointerException).
+
+Notes: Passing a null input causes a crash during the .toLowerCase() or .split() operations. Additionally, calling counts.get(word) for a word not yet in the map returns null, which causes a NullPointerException when the code attempts to increment it.
+
+Fix: Add a null guard at the beginning of the method and use counts.getOrDefault(word, 0) + 1 for increments.
+
+Bug 6 – bug6.py
+Intended Behavior: Read student scores from a CSV, calculate their average, and write the results (Name and Average) to a new CSV file.
+
+Issue Type: Type Mismatch / Resource Management.
+
+Notes: CSV data is read as strings by default, so performing arithmetic on them raises a TypeError. Also, opening files without with blocks can lead to resource leaks if the files are not properly closed.
+
+Fix: Convert score strings to float() before calculation and use with open(...) blocks for both reading and writing.
