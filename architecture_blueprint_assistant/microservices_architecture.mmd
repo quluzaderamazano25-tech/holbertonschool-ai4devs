@@ -1,0 +1,22 @@
+graph TD
+  A[Client App] --> B[API Gateway]
+  B --> C[Auth Service]
+  B --> D[Roadmap Service]
+  B --> E[Progress Service]
+  B --> F[AI Recommendation Service]
+  B --> G[Goal Service]
+  B --> H[GitHub Integration Service]
+  B --> I[Notification Service]
+  B --> J[Leaderboard Service]
+  C --> C1[(Auth DB)]
+  D --> D1[(Roadmap DB)]
+  E --> E1[(Progress DB)]
+  F --> F1[(ML Model Store)]
+  G --> G1[(Goal DB)]
+  H --> H1[(Activity DB)]
+  I --> I1[Email / Push Provider]
+  J --> J1[(Leaderboard DB)]
+  E --> K[Message Broker]
+  G --> K
+  H --> K
+  K --> I
