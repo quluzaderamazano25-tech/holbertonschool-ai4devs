@@ -1,7 +1,4 @@
-﻿$path = "C:\Users\Fatima\OneDrive\Desktop\bug_description.md\prompting_debug_assistant\reflection.md"
-
-$content = @"
-# Reflection on AI-Assisted Debugging
+﻿# Reflection on AI-Assisted Debugging
 
 ## Introduction
 In this technical project, I investigated six diverse buggy code snippets across three major programming languages: Python, JavaScript, and Java. Using structured AI-assisted debugging workflows, the primary objective was to evaluate how effectively modern large language models can identify, explain, and resolve common software defects. These bugs ranged from fundamental off-by-one errors and logic flaws to more complex asynchronous race conditions, runtime exceptions, and resource management issues. By documenting every AI interaction, validating suggested fixes against rigorous test cases, and comparing results, I gained comprehensive insight into the practical strengths and inherent limitations of AI as a professional debugging partner in a modern software development lifecycle.
@@ -17,7 +14,3 @@ Human judgment remained absolutely critical during the validation and testing ph
 
 ## Conclusion
 AI-assisted debugging acts as a powerful and indispensable accelerator for identifying and resolving common coding errors. It is most effective on well-known bug patterns and significantly reduces the time spent searching through technical documentation or community forums like Stack Overflow. However, it absolutely cannot replace the critical thinking required for rigorous edge case validation, secondary issue detection, and production-level software robustness. The most effective professional workflow combines AI diagnosis for speed with thorough human review for completeness. In real-world settings, AI tools work best as a first-pass reviewer that flags obvious issues while a professional developer verifies correctness, tests complex boundary conditions, and ensures the fix aligns perfectly with the broader system design requirements and security standards.
-"@
-
-# Faylı yaradırıq (UTF-8 formatında)
-$content | Out-File -FilePath $path -Encoding utf8 -Force
