@@ -1,11 +1,11 @@
 $basePath = "C:\Users\Fatima\OneDrive\Desktop\bug_description.md"
 $promptsDir = Join-Path $basePath "prompt_patterns_library\prompts"
 
-# Qovluğu təmizləyib yenidən yaradırıq
+# Qovluğu təmizləyirik və yenidən yaradırıq
 if (Test-Path $promptsDir) { Remove-Item -Recurse -Force $promptsDir }
 New-Item -ItemType Directory -Path $promptsDir -Force
 
-# Task 0-dakı 12 istifadə halına uyğun, dəqiq [INPUT] placeholder-lı şablonlar
+# Task 0 use case-lərinə uyğun, tam strukturlaşdırılmış 12 şablon
 $templates = @{
     "complexity_reduction.md" = "# Complexity Reduction Template`n`n**Role**: Senior Software Architect`n**Task**: Simplify the provided code by reducing nesting and improving logic flow.`n**Input Placeholder**: [INPUT]`n**Expected Output**: A refactored code block with flattened logic and a summary of the complexity improvements."
     
@@ -32,11 +32,11 @@ $templates = @{
     "regression_testing.md" = "# Regression Testing Template`n`n**Role**: Testing Lead`n**Task**: Create tests to ensure new changes haven't broken the existing core features.`n**Input Placeholder**: [INPUT]`n**Expected Output**: A targeted suite of regression tests focusing on critical paths affected by recent patches."
 }
 
-# Faylları UTF-8 (No BOM) formatında yazırıq
+# Faylları botun oxuya biləcəyi UTF-8 formatında yazırıq
 $utf8NoBom = New-Object System.Text.UTF8Encoding $false
 foreach ($name in $templates.Keys) {
     $fPath = Join-Path $promptsDir $name
     [System.IO.File]::WriteAllText($fPath, $templates[$name], $utf8NoBom)
 }
 
-Write-Host "12 files updated with mandatory [INPUT] placeholders and detailed outputs." -ForegroundColor Green
+Write-Host "Success: All 12 templates rewritten with [INPUT] placeholders and proper structure." -ForegroundColor Cyan
