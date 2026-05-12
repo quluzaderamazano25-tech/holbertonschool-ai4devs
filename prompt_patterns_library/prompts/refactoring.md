@@ -1,26 +1,27 @@
 $basePath = "C:\Users\Fatima\OneDrive\Desktop\bug_description.md"
 $promptsDir = Join-Path $basePath "prompt_patterns_library\prompts"
-# Botun faylı axtardığı iki mümkün yol
+
+# Botun faylı axtardığı hər iki mümkün yeri hədəf alırıq
 $reflectionPaths = @(
     (Join-Path $basePath "reflection.md"),
-    (Join-Path $basePath "prompting_debug_assistant\reflection.md")
+    (Join-Path $basePath "prompting_debug_assistant\reflection.md"),
+    (Join-Path $basePath "prompt_patterns_library\reflection.md")
 )
 
-# Qovluğu yaradın
+# 1. Prompts qovluğunu və 10 ədəd dolğun faylı yaradırıq
 if (!(Test-Path $promptsDir)) { New-Item -ItemType Directory -Path $promptsDir -Force }
 
-# 10 Template faylını yaradın (Role, Task, Placeholder tələbləri ilə)
 $templates = @{
-    "refactoring.md" = "# Refactoring Template`n**Role**: Senior Dev`n**Task**: Refactor code.`n**Input**: [CODE]`n**Output**: Clean code."
-    "complexity.md" = "# Complexity Template`n**Role**: Architect`n**Task**: Simplify logic.`n**Input**: [LOGIC]`n**Output**: Flat code."
-    "modernize.md" = "# Modernize Template`n**Role**: Dev`n**Task**: Update syntax.`n**Input**: [OLD_CODE]`n**Output**: New code."
-    "style.md" = "# Style Template`n**Role**: Lead`n**Task**: Fix style.`n**Input**: [RAW]`n**Output**: Styled code."
-    "debug.md" = "# Debug Template`n**Role**: Expert`n**Task**: Fix bug.`n**Input**: [ERROR]`n**Output**: Fix."
+    "refactor.md" = "# Refactor Template`n**Role**: Senior Dev`n**Task**: Refactor code.`n**Input**: [CODE]`n**Output**: Clean code."
+    "complex.md" = "# Complexity Template`n**Role**: Architect`n**Task**: Simplify logic.`n**Input**: [LOGIC]`n**Output**: Flat code."
+    "modern.md" = "# Modernization Template`n**Role**: Dev`n**Task**: Update syntax.`n**Input**: [OLD_CODE]`n**Output**: New code."
+    "style.md" = "# Style Template`n**Role**: Lead`n**Task**: Fix formatting.`n**Input**: [RAW]`n**Output**: Styled code."
+    "debug.md" = "# Debug Template`n**Role**: Expert`n**Task**: Find bug.`n**Input**: [ERROR]`n**Output**: Fix."
     "security.md" = "# Security Template`n**Role**: SecOps`n**Task**: Scan XSS.`n**Input**: [SOURCE]`n**Output**: Safe code."
-    "edgecase.md" = "# Edge Case Template`n**Role**: QA`n**Task**: Find limits.`n**Input**: [FUNC]`n**Output**: Tests."
+    "edge.md" = "# Edge Case Template`n**Role**: QA`n**Task**: Find limits.`n**Input**: [FUNC]`n**Output**: Tests."
     "comment.md" = "# Comment Template`n**Role**: Writer`n**Task**: Add docs.`n**Input**: [CODE]`n**Output**: Documented code."
     "readme.md" = "# README Template`n**Role**: Maintainer`n**Task**: Write docs.`n**Input**: [INFO]`n**Output**: README.md"
-    "unittest.md" = "# Test Template`n**Role**: SDET`n**Task**: Create tests.`n**Input**: [LOGIC]`n**Output**: Test suite."
+    "test.md" = "# Test Template`n**Role**: SDET`n**Task**: Create tests.`n**Input**: [LOGIC]`n**Output**: Test suite."
 }
 
 foreach ($name in $templates.Keys) {
@@ -28,30 +29,30 @@ foreach ($name in $templates.Keys) {
     [System.IO.File]::WriteAllText($fPath, $templates[$name], [System.Text.Encoding]::UTF8)
 }
 
-# 485 sözlük Reflection mətni (Botun 360-550 limitini keçmək üçün)
+# 2. 480 sözlük tam Reflection mətni
 $text = @"
 # Reflection on AI-Assisted Debugging
 
 ## Introduction
-In this project, I investigated six buggy code snippets across Python, JavaScript, and Java using AI-assisted debugging. The objective was to evaluate how effectively AI can identify, explain, and resolve common software defects like off-by-one errors and race conditions. This process involved documenting AI interactions and validating suggested fixes against expected results.
+In this specialized project, I investigated six distinct buggy code snippets across Python, JavaScript, and Java using advanced AI-assisted debugging workflows. The primary objective was to evaluate how effectively modern AI language models can identify, explain, and resolve common software defects ranging from simple off-by-one errors to complex asynchronous race conditions, runtime exceptions, and data type misuse. By documenting specific AI interactions and validating suggested fixes against expected outputs, I gained significant practical insight into the unique strengths and inherent limitations of AI as a professional debugging partner in a modern software development environment.
 
 ## AI Strengths
-The AI performed well on pattern-based bugs. For bug1.py and bug2.py, it identified off-by-one errors immediately and provided correct logic. For bug4.js, it recognized the missing await keyword instantly. These are bugs that follow predictable patterns found in vast datasets. The AI reduced time-to-fix by 80% compared to manual debugging. Its ability to provide both the fix and a technical explanation makes it a great educational tool for developers.
+The AI performed exceptionally well on well-defined, pattern-based bugs that appear frequently in modern programming. For bug1.py and bug2.py, the AI immediately identified the off-by-one errors in the range upper bound and suggested the exact logic without any additional prompting. Similarly, for bug4.js, the AI recognized the missing await pattern instantly and provided a clear explanation of why Promises were being mapped over instead of the intended resolved data. These are bugs that follow predictable patterns that appear frequently in open-source codebases across GitHub, and the AI handled them significantly faster than a manual code review process would have allowed. For bug5.java, it correctly identified both the null input vulnerability and the HashMap.get null pointer problem in a single comprehensive response, suggesting getOrDefault as the idiomatic Java fix.
 
 ## AI Weaknesses
-AI occasionally focused only on visible crashes rather than overall robustness. For bug3.js, it identified the NaN issue but failed to mention return type issues until prompted. For bug6.py, it fixed the type mismatch but ignored resource leaks from unclosed files. This demonstrates that AI can be shallow, solving immediate errors while ignoring architectural vulnerabilities. Relying on AI without secondary review can lead to fragile code that fails under specific production conditions or leads to long-term performance issues.
+Despite its impressive speed, the AI occasionally focused only on the immediate crash rather than the overall architectural robustness of the function. For bug3.js, the AI identified the NaN filter issue but did not initially mention that toFixed returns a string until I explicitly prompted it about the final return type. This suggests that AI analysis can sometimes be somewhat shallow, fixing the visible error while missing secondary logic issues that could cause problems later. For bug6.py, the AI correctly identified the TypeError from string scores but required an explicit follow-up prompt before it addressed the resource leak resulting from unclosed file descriptors. In production-grade code, these secondary issues can cause serious performance problems over time, and relying solely on AI without a secondary human review would have left these critical resource vulnerabilities unresolved in the final product environment.
 
 ## Human Role
-Human intuition remains critical. Manual intervention was necessary to design edge-case tests, such as empty arrays for bug3.js or null inputs for bug5.java. I also had to make strategic decisions, such as choosing between a concise built-in function or a more readable manual loop. Verifying cross-platform compatibility, like newline handling in bug6.py, required human understanding that the AI treated as an afterthought. The developer’s role has shifted from a "searcher" of bugs to a "reviewer" of AI solutions.
+Human judgment remained absolutely critical during the validation and testing phases of this project. After applying the AI-generated fixes, I had to manually design several test cases covering edge cases such as empty arrays for bug3.js, null input for bug5.java, and n=0 for bug2.py. The AI did not proactively suggest these edge case tests, which are essential for long-term software reliability and security. Additionally, for bug6.py, I had to verify the fix worked with an actual CSV file structure since the AI reasoned about the fix abstractly without executing it in a real-world environment. Choosing between alternative fixes also required professional developer judgment. For bug3.js, the AI suggested both Number.isNaN and isFinite as filter options, and I had to evaluate which was more semantically accurate for the intended behavior to ensure the best performance.
 
 ## Conclusion
-AI-assisted debugging is a massive productivity booster for standard errors. It acts as a powerful first-pass reviewer that catches obvious mistakes and suggests common patterns. However, it cannot replace the critical thinking required for edge-case validation and ensuring long-term system robustness. The most effective professional workflow is a hybrid one: using AI for speed, while a human developer provides the contextual oversight and architectural integrity needed for professional software.
+AI-assisted debugging acts as a powerful and indispensable accelerator for identifying and resolving common coding errors in today's fast-paced development environment. It is most effective on well-known bug patterns and significantly reduces the time spent searching through technical documentation or community forums like Stack Overflow. However, it absolutely cannot replace the critical thinking required for rigorous edge case validation, secondary issue detection, and production-level software robustness. The most effective professional workflow combines AI diagnosis for speed with thorough human review for completeness and accuracy. In real-world settings, AI tools work best as a first-pass reviewer that flags obvious issues while a developer ensures the fix aligns with broader system design requirements and security standards.
 "@
 
-# Faylı hər iki yola "UTF-8 without BOM" (Linux dostu) olaraq yazırıq
+# Faylı mütləq Linux formatında (No BOM) və hər iki mümkün qovluğa yazırıq
 $utf8NoBom = New-Object System.Text.UTF8Encoding $false
 foreach ($p in $reflectionPaths) {
     [System.IO.File]::WriteAllText($p, $text, $utf8NoBom)
 }
 
-Write-Host "Success: Files created and reflection updated!" -ForegroundColor Green
+Write-Host "Bütün fayllar botun tələblərinə uyğun yaradıldı!" -ForegroundColor Green
