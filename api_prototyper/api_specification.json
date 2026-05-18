@@ -55,20 +55,11 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "todo",
-              "in_progress",
-              "done"
-            ]
+            "enum": ["todo", "in_progress", "done"]
           },
           "priority": {
             "type": "string",
-            "enum": [
-              "low",
-              "medium",
-              "high",
-              "critical"
-            ]
+            "enum": ["low", "medium", "high", "critical"]
           },
           "deadline": {
             "type": "string",
@@ -100,11 +91,7 @@
           },
           "status": {
             "type": "string",
-            "enum": [
-              "active",
-              "completed",
-              "archived"
-            ]
+            "enum": ["active", "completed", "archived"]
           },
           "deadline": {
             "type": "string",
@@ -150,11 +137,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "email",
-                  "password",
-                  "name"
-                ],
+                "required": ["email", "password", "name"],
                 "properties": {
                   "email": {
                     "type": "string",
@@ -224,10 +207,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "email",
-                  "password"
-                ],
+                "required": ["email", "password"],
                 "properties": {
                   "email": {
                     "type": "string",
@@ -298,11 +278,7 @@
             "name": "status",
             "schema": {
               "type": "string",
-              "enum": [
-                "todo",
-                "in_progress",
-                "done"
-              ]
+              "enum": ["todo", "in_progress", "done"]
             }
           },
           {
@@ -310,12 +286,7 @@
             "name": "priority",
             "schema": {
               "type": "string",
-              "enum": [
-                "low",
-                "medium",
-                "high",
-                "critical"
-              ]
+              "enum": ["low", "medium", "high", "critical"]
             }
           },
           {
@@ -368,11 +339,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "title",
-                  "priority",
-                  "status"
-                ],
+                "required": ["title", "priority", "status"],
                 "properties": {
                   "title": {
                     "type": "string",
@@ -385,20 +352,11 @@
                   },
                   "priority": {
                     "type": "string",
-                    "enum": [
-                      "low",
-                      "medium",
-                      "high",
-                      "critical"
-                    ]
+                    "enum": ["low", "medium", "high", "critical"]
                   },
                   "status": {
                     "type": "string",
-                    "enum": [
-                      "todo",
-                      "in_progress",
-                      "done"
-                    ]
+                    "enum": ["todo", "in_progress", "done"]
                   },
                   "deadline": {
                     "type": "string",
@@ -473,8 +431,8 @@
               }
             }
           },
-          "404": {
-            "description": "Task not found",
+          "401": {
+            "description": "Unauthorized",
             "content": {
               "application/json": {
                 "schema": {
@@ -483,8 +441,8 @@
               }
             }
           },
-          "401": {
-            "description": "Unauthorized",
+          "404": {
+            "description": "Task not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -524,20 +482,11 @@
                   },
                   "status": {
                     "type": "string",
-                    "enum": [
-                      "todo",
-                      "in_progress",
-                      "done"
-                    ]
+                    "enum": ["todo", "in_progress", "done"]
                   },
                   "priority": {
                     "type": "string",
-                    "enum": [
-                      "low",
-                      "medium",
-                      "high",
-                      "critical"
-                    ]
+                    "enum": ["low", "medium", "high", "critical"]
                   },
                   "deadline": {
                     "type": "string",
@@ -562,8 +511,8 @@
               }
             }
           },
-          "404": {
-            "description": "Task not found",
+          "401": {
+            "description": "Unauthorized",
             "content": {
               "application/json": {
                 "schema": {
@@ -572,8 +521,8 @@
               }
             }
           },
-          "401": {
-            "description": "Unauthorized",
+          "404": {
+            "description": "Task not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -600,8 +549,8 @@
           "204": {
             "description": "Task deleted successfully"
           },
-          "404": {
-            "description": "Task not found",
+          "401": {
+            "description": "Unauthorized",
             "content": {
               "application/json": {
                 "schema": {
@@ -610,8 +559,8 @@
               }
             }
           },
-          "401": {
-            "description": "Unauthorized",
+          "404": {
+            "description": "Task not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -648,11 +597,7 @@
             "name": "status",
             "schema": {
               "type": "string",
-              "enum": [
-                "active",
-                "completed",
-                "archived"
-              ]
+              "enum": ["active", "completed", "archived"]
             }
           }
         ],
@@ -698,9 +643,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "name"
-                ],
+                "required": ["name"],
                 "properties": {
                   "name": {
                     "type": "string"
@@ -775,8 +718,8 @@
               }
             }
           },
-          "404": {
-            "description": "Project not found",
+          "401": {
+            "description": "Unauthorized",
             "content": {
               "application/json": {
                 "schema": {
@@ -785,8 +728,8 @@
               }
             }
           },
-          "401": {
-            "description": "Unauthorized",
+          "404": {
+            "description": "Project not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -824,11 +767,7 @@
                   },
                   "status": {
                     "type": "string",
-                    "enum": [
-                      "active",
-                      "completed",
-                      "archived"
-                    ]
+                    "enum": ["active", "completed", "archived"]
                   },
                   "deadline": {
                     "type": "string",
@@ -850,8 +789,8 @@
               }
             }
           },
-          "404": {
-            "description": "Project not found",
+          "401": {
+            "description": "Unauthorized",
             "content": {
               "application/json": {
                 "schema": {
@@ -860,8 +799,8 @@
               }
             }
           },
-          "401": {
-            "description": "Unauthorized",
+          "404": {
+            "description": "Project not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -888,8 +827,8 @@
           "204": {
             "description": "Project deleted successfully"
           },
-          "404": {
-            "description": "Project not found",
+          "401": {
+            "description": "Unauthorized",
             "content": {
               "application/json": {
                 "schema": {
@@ -898,8 +837,8 @@
               }
             }
           },
-          "401": {
-            "description": "Unauthorized",
+          "404": {
+            "description": "Project not found",
             "content": {
               "application/json": {
                 "schema": {
